@@ -147,7 +147,7 @@ plt.show()
 
 结果图：
 
-
+[!Text(https://github.com/naginoasukara/machinelearninginaction/blob/master/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98/ch2/image/5.png)
 
 ### 用户搜索
 
