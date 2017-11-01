@@ -91,11 +91,63 @@ sortedClassCount = sorted(classCount.items(), key=operator.itemgetter(1), revers
 
 以0.02为梯度，到0.92.（同理，训练集比率过小也会导致没有意义等问题）。
 
-通过以下命令可以在登陆的时候使用命令行显示二维码：
+代码：
+
+代码修改为返回错误率
 
 ```python
-
+#对约会网站进行测试
+def datingClassTest(hoRatio):
+    #0.1为测试集 0.9为训练集
+    #hoRatio = 0.10      #hold out 10%
+    datingDataMat,datingLabels = file2matrix('datingTestSet2.txt')       #load data setfrom file
+    normMat, ranges, minVals = autoNorm(datingDataMat)
+    m = normMat.shape[0]
+    numTestVecs = int(m*hoRatio)
+    errorCount = 0.0
+    for i in range(numTestVecs):
+        classifierResult = classify0(normMat[i,:],normMat[numTestVecs:m,:],datingLabels[numTestVecs:m],3)
+        #print("the classifier came back with: %d, the real answer is: %d" % (classifierResult, datingLabels[i]))
+        if (classifierResult != datingLabels[i]): errorCount += 1.0
+    print("the total error rate is: %f" % (errorCount/float(numTestVecs)))
+    return (errorCount/float(numTestVecs))
+    #print(errorCount)
 ```
+
+进行循环开始计算不同占比的错误率
+
+```python
+hoRatio = 0.1
+i = 0
+hoRatios = np.zeros((41,2))
+while(hoRatio <= 0.92):
+    print('hoRatio is : ', hoRatio)
+    a = kNN.datingClassTest(hoRatio)
+    hoRatios[i] = np.tile([hoRatio, a],(1,1))
+    hoRatio += 0.02
+    i += 1
+print(i)
+```
+
+讲列表进行操作修改为`numpy ndarray`
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.linspace(0, 100)
+y1, y2 = hoRatios[:,0], hoRatios[:,1]
+print(type(np.sin(x)))
+plt.plot(y1, y2, label='error_rate')
+plt.xlabel('hoRatio')
+plt.ylabel('errorRate')
+plt.legend()
+plt.show()
+```
+
+结果图：
+
+
 
 ### 用户搜索
 
