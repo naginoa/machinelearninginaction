@@ -9,11 +9,11 @@
 
 第一章是简介，所以直接从第二层开始
 
-### 上下文管理器
+### 1.上下文管理器
 ```python
 #讲文本记录转化为numpy
 def file2matrix(filename):
-    fr = open(filename)
+    `fr = open(filename)`
     numberOfLines = len(fr.readlines())         #get the number of lines in the file
     returnMat = zeros((numberOfLines,3))        #prepare matrix to return
     classLabelVector = []                       #prepare labels return   
@@ -30,6 +30,9 @@ def file2matrix(filename):
         index += 1
     return returnMat,classLabelVector
 ```
+
+
+此处
 
 ## 简单入门实例
 
