@@ -149,13 +149,8 @@ plt.show()
 
 ![Image text](https://github.com/naginoasukara/machinelearninginaction/blob/master/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98/ch2/image/5.png)
 
-### 用户搜索
+### 总结
+
+由此图可见，错误率开始从0.1到0.3时呈现增长趋势，之后0.3到0.75之间是下降趋势，到0.75左右时错误率下降到最低，可见测试集比率到此时训练效果最好。之后错误率又将升高。
 
 
-关于公众号、群聊的获取与搜索在文档中有更加详细的介绍。
-
-### 附件的下载与发送
-
-itchat的附件下载方法存储在msg的Text键中。
-
-发送的文件的文件名（图片给出的默认文件名）都存储在msg的F
