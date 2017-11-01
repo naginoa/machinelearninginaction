@@ -32,7 +32,14 @@ def file2matrix(filename):
 ```
 
 
-此处
+此处:
+```python
+fr = open(filename)
+```
+文件的使用没有使用上下文管理器，存在文件关闭隐患，详见项目`python-progressing`，应改为：
+```python
+with open(filename) as fr:
+```
 
 ## 简单`入门`实例
 
