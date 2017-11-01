@@ -83,11 +83,13 @@ sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1), re
 sortedClassCount = sorted(classCount.items(), key=operator.itemgetter(1), reverse=True)
 ```
 
-itchat.auto_login(True)
-itchat.run(True)
-```
+### 3.找出最小的错误率并制作错误率曲线图
 
-### 命令行二维码
+此处书中没有。
+
+测试集比率从0.1开始，如果测试集占比小于0.1，例如0.01，错误率会是0，但是此时测试集数据非常小，没有实际意义。因此从0.1开始
+
+以0.02为梯度，到0.92.（同理，训练集比率过小也会导致没有意义等问题）。
 
 通过以下命令可以在登陆的时候使用命令行显示二维码：
 
