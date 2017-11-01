@@ -13,7 +13,7 @@
 ```python
 #讲文本记录转化为numpy
 def file2matrix(filename):
-    `fr = open(filename)`
+    fr = open(filename)
     numberOfLines = len(fr.readlines())         #get the number of lines in the file
     returnMat = zeros((numberOfLines,3))        #prepare matrix to return
     classLabelVector = []                       #prepare labels return   
@@ -34,7 +34,7 @@ def file2matrix(filename):
 
 此处
 
-## 简单入门实例
+## 简单`入门`实例
 
 t))
 
