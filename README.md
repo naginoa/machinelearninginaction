@@ -152,6 +152,11 @@ plt.show()
 
 ![Image text](https://github.com/naginoasukara/machinelearninginaction/blob/master/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98/ch2/image/5.png)
 
+
+#### 总结
+
+由此图可见，错误率开始从0.1到0.3时呈现增长趋势，之后0.3到0.75之间是下降趋势，到0.75左右时错误率下降到最低，可见测试集比率到此时训练效果最好。之后错误率又将升高。
+
 ### 4.knn算法寻找最优参数k，以达到最佳训练效果。
 
 KNN算法简单有效，但没有优化的暴力法效率容易达到瓶颈。如样本个数为N，特征维度为D的时候，该算法时间复杂度呈O（DN)增长。
@@ -160,8 +165,40 @@ KNN 算法本身简单有效，它是一种 lazy-learning 算法，分类器不�
 
 KNN算法执行效率并不高，运行速度非常慢。算法需要为每个测试向量做2000次距离计算(每一个测试集要对所有的训练集进行距离计算,十个数字,每个数字有大约200个字迹(txt文档),10*200=2000),每个距离计算包括了1024个维度浮点计算(32*32)，总计执行900次(测试集十个数字,每个数字有90个文档,10*90)。
 
-### 总结
+随着k的取值不同，knn算法的效果是不同的。同理，在这里我们做一个类似的循环，找出最优参数k。代码如下：
 
-由此图可见，错误率开始从0.1到0.3时呈现增长趋势，之后0.3到0.75之间是下降趋势，到0.75左右时错误率下降到最低，可见测试集比率到此时训练效果最好。之后错误率又将升高。
+计算k从1到20，将错误率加入xylabel
 
+```python
+import numpy as np
 
+k = 1
+i = 0
+xylabel = np.zeros((20,2))
+while(k <= 20):
+    a = kNN.handwritingClassTest(k)
+    xylabel[i] = np.tile([k, a],(1,1))
+    print(xylabel[i])
+    i += 1
+    k += 1
+print(k)
+```
+
+同样转化为`ndarray`,使用`matplotlib`制图
+
+```python
+import matplotlib.pyplot as plt
+
+y1, y2 = xylabel[:,0], xylabel[:,1]
+plt.plot(y1, y2, label='error_rate')
+plt.xlabel('k')
+plt.ylabel('errorRate')
+plt.legend()
+plt.show()
+```
+
+![Image text](https://github.com/naginoasukara/machinelearninginaction/blob/master/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98/ch2/image/6.png)
+
+#### 总结
+
+由图可见，k值越大，错误率相对越高。并可观察得出k值取3时，错误率达到最低水平。
