@@ -298,7 +298,9 @@ KNN的实例邻近的类别被认为相同。所以改进算法需要根据他�
 
 2、统计得到在各类别下各个特征属性的条件概率估计。即<img src="http://latex.codecogs.com/gif.latex?P(a_1|y_1),P(a_2|y_1),...,P(a_m|y_1);P(a_1|y_2),P(a_2|y_2),...,P(a_m|y_2);...;P(a_1|y_n),P(a_2|y_n),...,P(a_m|y_n)">。      
 
-3、如果各个特征属性是条件独立的，则根据贝叶斯定理有如下推导：           因为分母对于所有类别为常数，因为我们只要将分子最大化皆可。又因为各特征属性是条件独立的，所以有：   
+3、如果各个特征属性是条件独立的，则根据贝叶斯定理有如下推导：<img src="http://latex.codecogs.com/gif.latex?P(y_i|x)=\frac{P(x|y_i)P(y_i)}{P(x)}">
+
+因为分母对于所有类别为常数，因为我们只要将分子最大化皆可。又因为各特征属性是条件独立的，所以有：   
 
 ```$p(c_i|w) = \frac{p(c_i|w)p(c_i)}{p(w)}$```
 
@@ -310,4 +312,4 @@ ax^{2} + by^{2} + c = 0
 
 <img src="http://latex.codecogs.com/gif.latex?x=\{a_1,a_2,...,a_m\}">
 
-<img src="http://latex.codecogs.com/gif.latex?P(a_1|y_1),P(a_2|y_1),...,P(a_m|y_1);P(a_1|y_2),P(a_2|y_2),...,P(a_m|y_2);...;P(a_1|y_n),P(a_2|y_n),...,P(a_m|y_n)"><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src="">
+<img src="http://latex.codecogs.com/gif.latex?P(y_i|x)=\frac{P(x|y_i)P(y_i)}{P(x)}"><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src="">
