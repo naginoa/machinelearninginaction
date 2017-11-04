@@ -283,3 +283,5 @@ KNN的实例邻近的类别被认为相同。所以改进算法需要根据他�
 ```$p(c_i|w) = \frac{p(c_i|w)p(c_i)}{p(w)}$```
 
 ax^{2} + by^{2} + c = 0
+
+<img src="http://chart.googleapis.com/chart?cht=tx&chl=\Large x=\frac{-b\pm\sqrt{b^2-4ac}}{2a}" style="border:none;">
