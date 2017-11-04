@@ -288,4 +288,4 @@ ax^{2} + by^{2} + c = 0
 
 <img src="http://chart.googleapis.com/chart?cht=tx&chl= ax^{2} + by^{2} + c = 0" style="border:none;">
 
-http://latex.codecogs.com/gif.latex?x=\{a_1,a_2,...,a_m\}
+<img src="http://latex.codecogs.com/gif.latex?x=\{a_1,a_2,...,a_m\}">
