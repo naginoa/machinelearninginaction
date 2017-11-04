@@ -289,12 +289,17 @@ KNN的实例邻近的类别被认为相同。所以改进算法需要根据他�
 2、有类别集合<img src="http://latex.codecogs.com/gif.latex?C=\{y_1,y_2,...,y_n\}">。
 
 3、计算<img src="http://latex.codecogs.com/gif.latex?P(y_1|x),P(y_2|x),...,P(y_n|x)">。
-<img src="http://latex.codecogs.com/gif.latex?x%20\in%20y_k"><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src="">
+<img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src=""><img src="">
+
 4、如果<img src="http://latex.codecogs.com/gif.latex?P(y_k|x)=max\{P(y_1|x),P(y_2|x),...,P(y_n|x)\}">，则<img src="http://latex.codecogs.com/gif.latex?x%20\in%20y_k">。      
 
 那么现在的关键就是如何计算第3步中的各个条件概率。我们可以这么做：      
 
-1、找到一个已知分类的待分类项集合，这个集合叫做训练样本集。      2、统计得到在各类别下各个特征属性的条件概率估计。即。      3、如果各个特征属性是条件独立的，则根据贝叶斯定理有如下推导：           因为分母对于所有类别为常数，因为我们只要将分子最大化皆可。又因为各特征属性是条件独立的，所以有：   
+1、找到一个已知分类的待分类项集合，这个集合叫做训练样本集。      
+
+2、统计得到在各类别下各个特征属性的条件概率估计。即<img src="http://latex.codecogs.com/gif.latexP(a_1|y_1),P(a_2|y_1),...,P(a_m|y_1);P(a_1|y_2),P(a_2|y_2),...,P(a_m|y_2);...;P(a_1|y_n),P(a_2|y_n),...,P(a_m|y_n)">。      
+
+3、如果各个特征属性是条件独立的，则根据贝叶斯定理有如下推导：           因为分母对于所有类别为常数，因为我们只要将分子最大化皆可。又因为各特征属性是条件独立的，所以有：   
 
 ```$p(c_i|w) = \frac{p(c_i|w)p(c_i)}{p(w)}$```
 
