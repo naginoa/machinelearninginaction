@@ -344,3 +344,44 @@ def createVocabList2(dataSet):
 原因是dataset传入的参数并不是一句话，而是几句话，代码是对每句话取并集。
 
 #### 2.对<img src="http://latex.codecogs.com/gif.latex?P(w|c_i)=P(w_0,w_1,w_2...w_n|c_i)">的代码实现有所不理解
+
+```python
+def trainNB0(trainMatrix,trainCategory):
+    numTrainDocs = len(trainMatrix)
+    numWords = len(trainMatrix[0])
+    pAbusive = sum(trainCategory)/float(numTrainDocs)
+    p0Num = zeros(numWords); p1Num = zeros(numWords)      #change to ones() 
+    p0Denom = 0.0; p1Denom = 0.0                        #change to 2.0
+    for i in range(numTrainDocs):
+        if trainCategory[i] == 1:
+            p1Num += trainMatrix[i]
+            p1Denom += sum(trainMatrix[i])
+        else:
+            p0Num += trainMatrix[i]
+            p0Denom += sum(trainMatrix[i])
+    p1Vect = (p1Num/p1Denom)          #change to log()
+    p0Vect = (p0Num/p0Denom)          #change to log()
+    return p0Vect,p1Vect,pAbusive
+```
+
+此处不理解为什么 p1Num/p1Denom 就是这个概率，并且为什么没有除以C？
+
+1.数学上有 几率 和 概率 两种概念。以抛硬币为例，0.5为硬币正面向上的几率，而硬币向上的概率是实验次数中向上的次数除以总实验次数。例如48/100.
+
+2.结合本实验训练集有六句话，总共的词汇表的向量应该有20-30的长度。每一个单词若出现则在他的索引处加一，最后除以该句话的单词数总量。其中如下代码就是这样的思想
+
+```python
+p1Num += trainMatrix[i]
+p1Denom += sum(trainMatrix[i])
+```
+
+计算结果：
+
+```python
+[ 0.125       0.          0.04166667  0.04166667  0.04166667  0.
+  0.04166667  0.04166667  0.04166667  0.04166667  0.04166667  0.04166667
+  0.04166667  0.04166667  0.04166667  0.          0.04166667  0.04166667
+  0.04166667  0.          0.04166667  0.          0.04166667  0.08333333
+  0.          0.          0.04166667  0.          0.04166667  0.          0.
+  0.        ]
+  ```
