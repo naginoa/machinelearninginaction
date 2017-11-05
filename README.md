@@ -319,4 +319,26 @@ KNN的实例邻近的类别被认为相同。所以改进算法需要根据他�
 
 对书中第四章有几处疑问：
 
-1.
+1. 认为次数代码可以修改
+    
+```python
+def createVocabList(dataSet):
+    vocabSet = set([])  #create empty set
+    for document in dataSet:
+        vocabSet = vocabSet | set(document) #union of the two sets
+    return list(vocabSet)
+```
+
+我认为此处代码是一句话中的每个单词对dataset对空集做并集操作，从此达到去重的效果。那何必不妨改成一下代码：
+
+```python
+def createVocabList2(dataSet):
+    vocabSet = set(dataSet)  #create empty set
+    return list(vocabSet)
+```
+
+结果会出现如下错误
+
+`TypeError: unhashable type: 'list'`
+
+原因是dataset传入的参数并不是一句话，而是几句话，代码是对每句话取并集。
