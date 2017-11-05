@@ -319,7 +319,7 @@ KNN的实例邻近的类别被认为相同。所以改进算法需要根据他�
 
 对书中第四章有几处疑问：
 
-1. 认为次数代码可以修改
+#### 1. 认为此处代码可以修改
     
 ```python
 def createVocabList(dataSet):
@@ -342,3 +342,5 @@ def createVocabList2(dataSet):
 `TypeError: unhashable type: 'list'`
 
 原因是dataset传入的参数并不是一句话，而是几句话，代码是对每句话取并集。
+
+#### 2.对<img src="http://latex.codecogs.com/gif.latex?P(w|c_i)=P(w_0|w_1|w_2...w_n|c_i)">的代码实现有所不理解
