@@ -31,16 +31,23 @@ def setOfWords2Vec(vocabList, inputSet):
         else: print("the word: %s is not in my Vocabulary!" % word)
     return returnVec
 
+
+#实现p(w|ci)
 def trainNB0(trainMatrix,trainCategory):
     numTrainDocs = len(trainMatrix)
     numWords = len(trainMatrix[0])
     pAbusive = sum(trainCategory)/float(numTrainDocs)
-    p0Num = zeros(numWords); p1Num = zeros(numWords)      #change to ones() 
+    p0Num = zeros(numWords); p1Num = zeros(numWords)      #change to ones()
+    #分子分母是求和求出来的，所以从0开始
     p0Denom = 0.0; p1Denom = 0.0                        #change to 2.0
+    #ci 在 本情况中是一个二分类问题，所以分为0 和 1 两种情况
     for i in range(numTrainDocs):
         if trainCategory[i] == 1:
+            #分子是所有的出现的word对应的向量想加，最后除以单词数
             p1Num += trainMatrix[i]
+            #print(p1Num)
             p1Denom += sum(trainMatrix[i])
+            #print(p1Denom)
         else:
             p0Num += trainMatrix[i]
             p0Denom += sum(trainMatrix[i])
