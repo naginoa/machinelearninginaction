@@ -276,6 +276,7 @@ KNN的实例邻近的类别被认为相同。所以改进算法需要根据他�
 
 
 ## 第四章
+<a href='https://github.com/naginoasukara/machinelearninginaction/tree/master/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98/ch4'>点此直接跳转到第二章</a>
 
 以下是网上寻找加整理的一些资料书中没有
 
