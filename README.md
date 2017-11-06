@@ -388,7 +388,7 @@ p1Denom += sum(trainMatrix[i])
 
 ### 纠错及改进
 
-1.上下文管理器<a href='https://github.com/naginoasukara/python-progress/blob/master/context/Context_manager.py' value='上下文管理器详情'></a>
+1.上下文管理器<a href='https://github.com/naginoasukara/python-progress/blob/master/context/Context_manager.py' value='上下文管理器详情'>上下文管理器详情</a>
 
 ```python
    for i in range(1,26):
