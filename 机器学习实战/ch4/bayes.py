@@ -90,12 +90,15 @@ def classifyNB(vec2Classify, p0Vec, p1Vec, pClass1):
     else: 
         return 0
     
+    
+#文档词袋模型，一个词可能不止出现一次
 def bagOfWords2VecMN(vocabList, inputSet):
     returnVec = [0]*len(vocabList)
     for word in inputSet:
         if word in vocabList:
             returnVec[vocabList.index(word)] += 1
     return returnVec
+
 
 def testingNB():
     listOPosts,listClasses = loadDataSet()
@@ -111,28 +114,37 @@ def testingNB():
     thisDoc = array(setOfWords2Vec(myVocabList, testEntry))
     print(testEntry,'classified as: ',classifyNB(thisDoc,p0V,p1V,pAb))
 
+    
+#解析文本文档
 def textParse(bigString):    #input is big string, #output is word list
     import re
     listOfTokens = re.split(r'\W*', bigString)
     return [tok.lower() for tok in listOfTokens if len(tok) > 2] 
     
+    
+#交叉验证训练贝叶斯模型
 def spamTest():
     docList=[]; classList = []; fullText =[]
     for i in range(1,26):
-        wordList = textParse(open('email/spam/%d.txt' % i).read())
+        wordList = textParse(open('email/spam/%d.txt' % i,encoding='utf-8').read())
+        #append 是将 变量原本的方式加进去，比如说把list填入。extend是把元素填入，把list中的元素填入
         docList.append(wordList)
         fullText.extend(wordList)
         classList.append(1)
-        wordList = textParse(open('email/ham/%d.txt' % i).read())
+        wordList = textParse(open('email/ham/%d.txt' % i,encoding='utf-8').read())
         docList.append(wordList)
         fullText.extend(wordList)
         classList.append(0)
     vocabList = createVocabList(docList)#create vocabulary
     trainingSet = range(50); testSet=[]           #create test set
     for i in range(10):
+        #随机产生一个>=0并且<50的整数
         randIndex = int(random.uniform(0,len(trainingSet)))
+        #将它加入测试集
         testSet.append(trainingSet[randIndex])
+        #并从训练集中删除
         del(trainingSet[randIndex])  
+    #存放向量和标签值
     trainMat=[]; trainClasses = []
     for docIndex in trainingSet:#train the classifier (get probs) trainNB0
         trainMat.append(bagOfWords2VecMN(vocabList, docList[docIndex]))
@@ -141,6 +153,7 @@ def spamTest():
     errorCount = 0
     for docIndex in testSet:        #classify the remaining items
         wordVector = bagOfWords2VecMN(vocabList, docList[docIndex])
+        #如果分类标签不等于实际标签
         if classifyNB(array(wordVector),p0V,p1V,pSpam) != classList[docIndex]:
             errorCount += 1
             print("classification error",docList[docIndex])
