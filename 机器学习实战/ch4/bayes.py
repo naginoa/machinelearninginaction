@@ -126,17 +126,20 @@ def textParse(bigString):    #input is big string, #output is word list
 def spamTest():
     docList=[]; classList = []; fullText =[]
     for i in range(1,26):
-        wordList = textParse(open('email/spam/%d.txt' % i,encoding='utf-8').read())
+        with open('email/spam/%s.txt' % i ,) as f:
+            wordList = textParse(f.read())
         #append 是将 变量原本的方式加进去，比如说把list填入。extend是把元素填入，把list中的元素填入
         docList.append(wordList)
         fullText.extend(wordList)
         classList.append(1)
-        wordList = textParse(open('email/ham/%d.txt' % i,encoding='utf-8').read())
+        #上下文管理器
+        with open('email/ham/%s.txt' % i ,) as f:
+            wordList = textParse(f.read())
         docList.append(wordList)
         fullText.extend(wordList)
         classList.append(0)
     vocabList = createVocabList(docList)#create vocabulary
-    trainingSet = range(50); testSet=[]           #create test set
+    trainingSet = [i for i in range(50)]; testSet=[]           #create test set
     for i in range(10):
         #随机产生一个>=0并且<50的整数
         randIndex = int(random.uniform(0,len(trainingSet)))
@@ -158,7 +161,7 @@ def spamTest():
             errorCount += 1
             print("classification error",docList[docIndex])
     print('the error rate is: ',float(errorCount)/len(testSet))
-    #return vocabList,fullText
+    return float(errorCount)/len(testSet)
 
 def calcMostFreq(vocabList,fullText):
     import operator
