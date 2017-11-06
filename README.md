@@ -467,6 +467,44 @@ python3中的range返回的是一个迭代值
     trainMat=[]; trainClasses = []
 ```
 
+### 3.交叉验证是通过多次不同的训练集测试集划分，来做错误率最低的划分方式，甚至是修正分类器，此处没有求平均和修正。那么我先做求平均和最低，修正分类器在第七章会讲到
+
+```python
+import numpy as np
+
+k = 1
+i = 0
+errors = []
+xylabel = np.zeros((10,2))
+while(k <= 10):
+    a = bayes.spamTest()
+    errors.append(a)
+    xylabel[i] = np.tile([k, a],(1,1))
+    print(xylabel[i])
+    i += 1
+    k += 1
+print(k)
+```
+
+```python
+print('average errorRate is :', sum(errors)/len(errors))
+average errorRate is : 0.08
+```
+
+```python
+import matplotlib.pyplot as plt
+
+y1, y2 = xylabel[:,0], xylabel[:,1]
+plt.plot(y1, y2, label='error_rate')
+plt.xlabel('k')
+plt.ylabel('errorRate')
+plt.legend()
+plt.show()
+```
+
+如下图：
+
+![Image text](https://github.com/naginoasukara/machinelearninginaction/blob/master/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98/ch4/image/1.png)
 
 
 
