@@ -9,6 +9,7 @@
 简介，不在赘述
 
 ## 第二章
+<a href='https://github.com/naginoasukara/machinelearninginaction/tree/master/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98/ch2'>点此直接跳转到第二章</a>
 
 kNN算法
 
