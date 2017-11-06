@@ -33,7 +33,7 @@ def setOfWords2Vec(vocabList, inputSet):
 
 
 #实现p(w|ci)
-def trainNB0(trainMatrix,trainCategory):
+def trainNB1(trainMatrix,trainCategory):
     numTrainDocs = len(trainMatrix)
     numWords = len(trainMatrix[0])
     pAbusive = sum(trainCategory)/float(numTrainDocs)
@@ -55,6 +55,33 @@ def trainNB0(trainMatrix,trainCategory):
     p0Vect = (p0Num/p0Denom)          #change to log()
     return p0Vect,p1Vect,pAbusive
 
+
+#实现p(w|ci)
+def trainNB0(trainMatrix,trainCategory):
+    numTrainDocs = len(trainMatrix)
+    numWords = len(trainMatrix[0])
+    pAbusive = sum(trainCategory)/float(numTrainDocs)
+    p0Num = ones(numWords); p1Num = ones(numWords)      #change to ones()
+    #w事件相互独立，如果其中一个概率值为0，因此词出现数初始化为1，分母初始化为2
+    p0Denom = 2.0; p1Denom = 2.0                        #change to 2.0
+    #ci 在 本情况中是一个二分类问题，所以分为0 和 1 两种情况
+    for i in range(numTrainDocs):
+        if trainCategory[i] == 1:
+            #分子是所有的出现的word对应的向量想加，最后除以单词数
+            p1Num += trainMatrix[i]
+            #print(p1Num)
+            p1Denom += sum(trainMatrix[i])
+            #print(p1Denom)
+        else:
+            p0Num += trainMatrix[i]
+            p0Denom += sum(trainMatrix[i])
+    #解决问题的下溢出，数值特别小时使用log更加精确.
+    p1Vect = log(p1Num/p1Denom)          #change to log()
+    p0Vect = log(p0Num/p0Denom)          #change to log()
+    return p0Vect,p1Vect,pAbusive
+
+
+#最后计算朴素贝叶斯公式，因为log（a*b） = log（a）+log（b）
 def classifyNB(vec2Classify, p0Vec, p1Vec, pClass1):
     p1 = sum(vec2Classify * p1Vec) + log(pClass1)    #element-wise mult
     p0 = sum(vec2Classify * p0Vec) + log(1.0 - pClass1)
