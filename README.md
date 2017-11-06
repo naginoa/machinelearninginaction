@@ -388,7 +388,7 @@ p1Denom += sum(trainMatrix[i])
 
 ### 纠错及改进
 
-1.上下文管理器
+#### 1.上下文管理器
 详情参照 ------->  <a href='https://github.com/naginoasukara/python-progress/blob/master/context/Context_manager.py' value='上下文管理器详情'>上下文管理器详情</a>
 
 bayes.py的spamTest()函数中出现错误
@@ -430,7 +430,7 @@ bayes.py的spamTest()函数中出现错误
         classList.append(0)
 ```
 
-2.bayes.py的spamTest()函数中出现错误
+#### 2.bayes.py的spamTest()函数中出现错误
 
 ```python
 TypeError: 'range' object doesn't support item deletion
@@ -467,7 +467,7 @@ python3中的range返回的是一个迭代值
     trainMat=[]; trainClasses = []
 ```
 
-### 3.交叉验证是通过多次不同的训练集测试集划分，来做错误率最低的划分方式，甚至是修正分类器，此处没有求平均和修正。那么我先做求平均和最低，修正分类器在第七章会讲到
+#### 3.交叉验证是通过多次不同的训练集测试集划分，来做错误率最低的划分方式，甚至是修正分类器，此处没有求平均和修正。那么我先做求平均和最低，修正分类器在第七章会讲到
 
 ```python
 import numpy as np
@@ -506,7 +506,7 @@ plt.show()
 
 ![Image text](https://github.com/naginoasukara/machinelearninginaction/blob/master/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98/ch4/image/1.png)
 
-
+可见，在训练集测试集数据量不是十分大时，会出现0错误的情况，并且训练速率要比KNN快.
 
 
 
