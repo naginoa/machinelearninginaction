@@ -385,3 +385,140 @@ p1Denom += sum(trainMatrix[i])
   0.          0.          0.04166667  0.          0.04166667  0.          0.
   0.        ]
   ```
+
+### 纠错及改进
+
+#### 1.上下文管理器
+详情参照 ------->  <a href='https://github.com/naginoasukara/python-progress/blob/master/context/Context_manager.py' value='上下文管理器详情'>上下文管理器详情</a>
+
+bayes.py的spamTest()函数中出现错误
+
+```python
+   for i in range(1,26):
+        wordList = textParse(open('email/spam/%d.txt' % i).read())
+        #append 是将 变量原本的方式加进去，比如说把list填入。extend是把元素填入，把list中的元素填入
+        docList.append(wordList)
+        fullText.extend(wordList)
+        classList.append(1)
+        wordList = textParse(open('email/ham/%d.txt' % i).read())
+        docList.append(wordList)
+        fullText.extend(wordList)
+        classList.append(0)
+```
+
+出现
+
+```python
+'gbk' codec can't decode byte 0xae in position 199: illegal multibyte sequence
+```
+
+原因只源代码中直接使用open()打开文件，这样在工程中是非常不科学的，尤其当数据量大时会引发各种错误，应改为：
+
+```python
+    for i in range(1,26):
+        with open('email/spam/%s.txt' % i ,) as f:
+            wordList = textParse(f.read())
+        #append 是将 变量原本的方式加进去，比如说把list填入。extend是把元素填入，把list中的元素填入
+        docList.append(wordList)
+        fullText.extend(wordList)
+        classList.append(1)
+        #上下文管理器
+        with open('email/ham/%s.txt' % i ,) as f:
+            wordList = textParse(f.read())
+        docList.append(wordList)
+        fullText.extend(wordList)
+        classList.append(0)
+```
+
+#### 2.bayes.py的spamTest()函数中出现错误
+
+```python
+TypeError: 'range' object doesn't support item deletion
+```
+
+```python
+    trainingSet = range(50); testSet=[]           #create test set
+    for i in range(10):
+        #随机产生一个>=0并且<50的整数
+        randIndex = int(random.uniform(0,len(trainingSet)))
+        #将它加入测试集
+        testSet.append(trainingSet[randIndex])
+        #并从训练集中删除
+        del(trainingSet[randIndex])  
+    #存放向量和标签值
+    trainMat=[]; trainClasses = []
+```
+
+python2中的range返回的是一个列表
+python3中的range返回的是一个迭代值
+
+因此将range(50)改为列表生成式
+
+```python
+    trainingSet = [i for i in range(50)]; testSet=[]           #create test set
+    for i in range(10):
+        #随机产生一个>=0并且<50的整数
+        randIndex = int(random.uniform(0,len(trainingSet)))
+        #将它加入测试集
+        testSet.append(trainingSet[randIndex])
+        #并从训练集中删除
+        del(trainingSet[randIndex])  
+    #存放向量和标签值
+    trainMat=[]; trainClasses = []
+```
+
+#### 3.交叉验证是通过多次不同的训练集测试集划分，来做错误率最低的划分方式，甚至是修正分类器，此处没有求平均和修正。那么我先做求平均和最低，修正分类器在第七章会讲到
+
+```python
+import numpy as np
+
+k = 1
+i = 0
+errors = []
+xylabel = np.zeros((10,2))
+while(k <= 10):
+    a = bayes.spamTest()
+    errors.append(a)
+    xylabel[i] = np.tile([k, a],(1,1))
+    print(xylabel[i])
+    i += 1
+    k += 1
+print(k)
+```
+
+```python
+print('average errorRate is :', sum(errors)/len(errors))
+average errorRate is : 0.08
+```
+
+```python
+import matplotlib.pyplot as plt
+
+y1, y2 = xylabel[:,0], xylabel[:,1]
+plt.plot(y1, y2, label='error_rate')
+plt.xlabel('k')
+plt.ylabel('errorRate')
+plt.legend()
+plt.show()
+```
+
+如下图：
+
+![Image text](https://github.com/naginoasukara/machinelearninginaction/blob/master/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98/ch4/image/1.png)
+
+可见，在训练集测试集数据量不是十分大时，会出现0错误的情况，并且训练速率要比KNN快.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
