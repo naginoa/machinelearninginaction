@@ -388,7 +388,10 @@ p1Denom += sum(trainMatrix[i])
 
 ### 纠错及改进
 
-1.上下文管理器<a href='https://github.com/naginoasukara/python-progress/blob/master/context/Context_manager.py' value='上下文管理器详情'>上下文管理器详情</a>
+1.上下文管理器
+详情参照 ------->  <a href='https://github.com/naginoasukara/python-progress/blob/master/context/Context_manager.py' value='上下文管理器详情'>上下文管理器详情</a>
+
+bayes.py的spamTest()函数中出现错误
 
 ```python
    for i in range(1,26):
@@ -402,3 +405,82 @@ p1Denom += sum(trainMatrix[i])
         fullText.extend(wordList)
         classList.append(0)
 ```
+
+出现
+
+```python
+'gbk' codec can't decode byte 0xae in position 199: illegal multibyte sequence
+```
+
+原因只源代码中直接使用open()打开文件，这样在工程中是非常不科学的，尤其当数据量大时会引发各种错误，应改为：
+
+```python
+    for i in range(1,26):
+        with open('email/spam/%s.txt' % i ,) as f:
+            wordList = textParse(f.read())
+        #append 是将 变量原本的方式加进去，比如说把list填入。extend是把元素填入，把list中的元素填入
+        docList.append(wordList)
+        fullText.extend(wordList)
+        classList.append(1)
+        #上下文管理器
+        with open('email/ham/%s.txt' % i ,) as f:
+            wordList = textParse(f.read())
+        docList.append(wordList)
+        fullText.extend(wordList)
+        classList.append(0)
+```
+
+2.bayes.py的spamTest()函数中出现错误
+
+```python
+TypeError: 'range' object doesn't support item deletion
+```
+
+```python
+    trainingSet = range(50); testSet=[]           #create test set
+    for i in range(10):
+        #随机产生一个>=0并且<50的整数
+        randIndex = int(random.uniform(0,len(trainingSet)))
+        #将它加入测试集
+        testSet.append(trainingSet[randIndex])
+        #并从训练集中删除
+        del(trainingSet[randIndex])  
+    #存放向量和标签值
+    trainMat=[]; trainClasses = []
+```
+
+python2中的range返回的是一个列表
+python3中的range返回的是一个迭代值
+
+因此将range(50)改为列表生成式
+
+```python
+    trainingSet = [i for i in range(50)]; testSet=[]           #create test set
+    for i in range(10):
+        #随机产生一个>=0并且<50的整数
+        randIndex = int(random.uniform(0,len(trainingSet)))
+        #将它加入测试集
+        testSet.append(trainingSet[randIndex])
+        #并从训练集中删除
+        del(trainingSet[randIndex])  
+    #存放向量和标签值
+    trainMat=[]; trainClasses = []
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
