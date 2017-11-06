@@ -4,6 +4,13 @@
 
 对此代码中的进行一些学习和改进
 
+# 目录
+此readme为总栏，若想分章阅读，请点击以下子目录。
+
+<a href='https://github.com/naginoasukara/machinelearninginaction/tree/master/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98/ch2'>第二章</a>
+
+<a href='https://github.com/naginoasukara/machinelearninginaction/tree/master/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%9E%E6%88%98/ch4'>第四章</a>
+
 ## 第一章
 
 简介，不在赘述
