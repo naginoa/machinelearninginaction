@@ -163,14 +163,18 @@ def spamTest():
     print('the error rate is: ',float(errorCount)/len(testSet))
     return float(errorCount)/len(testSet)
 
+
+#返回前30个高频词
 def calcMostFreq(vocabList,fullText):
     import operator
     freqDict = {}
     for token in vocabList:
         freqDict[token]=fullText.count(token)
-    sortedFreq = sorted(freqDict.iteritems(), key=operator.itemgetter(1), reverse=True) 
+    sortedFreq = sorted(freqDict.items(), key=operator.itemgetter(1), reverse=True) 
     return sortedFreq[:30]       
 
+
+#这段代码和之前分类邮件几乎一致，只是数据源变了而已，不做详解
 def localWords(feed1,feed0):
     import feedparser
     docList=[]; classList = []; fullText =[]
@@ -188,7 +192,7 @@ def localWords(feed1,feed0):
     top30Words = calcMostFreq(vocabList,fullText)   #remove top 30 words
     for pairW in top30Words:
         if pairW[0] in vocabList: vocabList.remove(pairW[0])
-    trainingSet = range(2*minLen); testSet=[]           #create test set
+    trainingSet = [i for i in range(2*minLen)]; testSet=[]      #create test set
     for i in range(20):
         randIndex = int(random.uniform(0,len(trainingSet)))
         testSet.append(trainingSet[randIndex])
